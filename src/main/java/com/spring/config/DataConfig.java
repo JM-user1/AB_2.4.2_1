@@ -61,6 +61,7 @@ public class DataConfig {
         properties.put("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
         properties.put("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
         properties.put("hibernate.dialect", environment.getProperty("hibernate.dialect"));
+        properties.setProperty("hibernate.enable_lazy_load_no_trans","true");
         return properties;
     }
 }

@@ -1,6 +1,6 @@
 package com.spring.security;
 
-import com.spring.security.handler.LoginSuccessHandler;
+import com.spring.handler.LoginSuccessHandler;
 import com.spring.service.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/user/**").hasAuthority("USER")
-                //.antMatchers("/info").hasAnyRole("USER","ADMIN")//,"ADMIN"
                 .antMatchers("/").permitAll()
                 .antMatchers("/info/**").permitAll()
                 .antMatchers("/reg/**").permitAll()
