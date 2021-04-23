@@ -4,9 +4,6 @@ package com.spring.service;
 import com.spring.dao.UserDao;
 import com.spring.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,19 +12,23 @@ import java.util.List;
 
 @Service
 @Transactional
-public class UserServiceImp implements UserDetailsService, UserService{
+public class UserServiceImp implements UserService{
 
 
     UserDao userDao;
+    @Autowired
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    UserServiceImp(UserDao userDao ) {
+    UserServiceImp(UserDao userDao, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userDao = userDao;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Transactional
     @Override
     public void addUser(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDao.addUser(user);
     }
 
@@ -55,13 +56,4 @@ public class UserServiceImp implements UserDetailsService, UserService{
         return userDao.getUserById(id);
     }
 
-    @Transactional
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.getUserByName(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found");
-        }
-        return user;
-    }
 }
