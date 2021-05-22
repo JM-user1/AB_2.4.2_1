@@ -11,7 +11,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
-
+//New Branch
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
