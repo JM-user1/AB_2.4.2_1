@@ -11,6 +11,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
+    //new end1v2
 
     //new Branch2
     @Id
